@@ -8,9 +8,9 @@ current_card = {}
 
 # ---------------------------------- COLLECTING DATA ----------------------------------- #
 try:
-    words_df = pandas.read_csv("data/words_to_learn.csv")
+    words_df = pandas.read_csv("words_to_learn.csv")
 except FileNotFoundError:
-    words_df = pandas.read_csv("data/french_words.csv")
+    words_df = pandas.read_csv("french_words.csv")
     words_to_learn = words_df.to_dict(orient="records")
 else:
     words_to_learn = words_df.to_dict(orient="records")
@@ -21,7 +21,7 @@ else:
 def remove_learnt_word():
     words_to_learn.remove(current_card)
     data = pandas.DataFrame(words_to_learn)
-    data.to_csv(path_or_buf="data/words_to_learn.csv", index=False)
+    data.to_csv(path_or_buf="words_to_learn.csv", index=False)
     next_card()
 
 
@@ -54,18 +54,18 @@ window.config(padx=50, pady=50, bg=BG_COLOR)
 flip_timer = window.after(3000, flip_card)
 
 canvas = Canvas(width=800, height=526, background=BG_COLOR, highlightthickness=0)
-card_front_img = PhotoImage(file="images/card_front.png")
-card_back_img = PhotoImage(file="images/card_back.png")
+card_front_img = PhotoImage(file="card_front.png")
+card_back_img = PhotoImage(file="card_back.png")
 card_image = canvas.create_image(400, 263, image=card_front_img)
 card_title = canvas.create_text(400, 150, text="", font=("Arial", 40, "italic"), fill="black")
 card_word = canvas.create_text(400, 263, text="", font=("Arial", 60, "bold"), fill="black")
 canvas.grid(row=0, column=0, columnspan=2)
 
-right_button_img = PhotoImage(file="images/right.png")
+right_button_img = PhotoImage(file="right.png")
 right_button = Button(image=right_button_img, borderwidth=0, bg=BG_COLOR, command=remove_learnt_word)
 right_button.grid(row=1, column=0)
 
-wrong_button_img = PhotoImage(file="images/wrong.png")
+wrong_button_img = PhotoImage(file="wrong.png")
 wrong_button = Button(image=wrong_button_img, borderwidth=0, bg=BG_COLOR, command=next_card)
 wrong_button.grid(row=1, column=1)
 
